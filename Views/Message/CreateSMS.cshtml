@@ -1,0 +1,27 @@
+﻿@model SMS
+@{
+    ViewData["Title"] = "CreateSMS";
+}
+
+<h1>SendSMS</h1>
+
+
+<form asp-route="SendSMS" method="post">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Recipients" class="control-label"></label>
+        <input asp-for="Recipients" class="form-control" />
+        <span asp-validation-for="Recipients" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Message" class="control-label"></label>
+        <input asp-for="Message" class="form-control" />
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Send SMS" class="btn btn-primary" />
+    </div>
+</form>

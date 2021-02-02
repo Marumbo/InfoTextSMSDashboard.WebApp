@@ -1,0 +1,29 @@
+﻿@model InfoTextSMSDashboard.WebApp.DTOs.Contact
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete are you sure you want to delete? </h1>
+
+<partial name="_ContactDetails" model="@Model">
+
+
+    <div>
+
+        <a asp-controller="Contact"
+           asp-action="DeleteContact"
+           asp-route-id="@Model.ContactId"
+           class="btn btn-danger">
+            Delete
+        </a>
+
+
+        <a asp-controller="contact"
+           asp-action="index"
+           class="btn btn-info">
+            Cancel
+        </a>
+
+
+    </div>
+

@@ -1,0 +1,16 @@
+﻿@model InfoTextSMSDashboard.WebApp.DTOs.Contact
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h1>Edit contact details</h1>
+
+
+<partial name="_SaveContact" model="@Model">
+
+    <a asp-controller="Contact"
+       asp-action="index"
+       class="btn btn-info">
+        Back to Contacts
+    </a>

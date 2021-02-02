@@ -1,0 +1,94 @@
+﻿@model IEnumerable<InfoTextSMSDashboard.WebApp.DTOs.Contact>
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<h1>Contacts</h1>
+
+
+<p>
+    <a asp-controller="Contact"
+       asp-action="Create"
+       class="btn btn-info">
+       Create new contact
+    </a>
+
+</p>
+
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+                <h3 class="mb-0">Contacts</h3>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Id </th>
+                            <th scope="col">First name</th>
+                            <th scope="col">Last name</th>
+                            <th scope="col">Phone number</th>
+                            <th scope="col">Email address</th>
+                            <th scope="col">View</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        @foreach (var contact in Model)
+                        {
+                        <tr>
+                            <td>
+                                @contact.ContactId
+                            </td>
+                            <td>
+                                @contact.FirstName
+                            </td>
+                            <td>
+                                @contact.LastName
+                            </td>
+                            <td>
+                                @contact.PhoneNumber
+                            </td>
+                            <td>
+                                @contact.EmailAddress
+                            </td>
+                            <td class="text-center">
+                                <a asp-controller="Contact"
+                                   asp-action="Details"
+                                   asp-route-id="@contact.ContactId"
+                                   class="btn btn-secondary">
+                                    View Details
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a asp-controller="Contact"
+                                   asp-action="Edit"
+                                   asp-route-id="@contact.ContactId"
+                                   class="btn btn-primary">
+                                    Edit
+                                </a>
+                            </td>
+
+                            <td class="text-center">
+                                <a asp-controller="Contact"
+                                   asp-action="Delete"
+                                   asp-route-id="@contact.ContactId"
+                                   class="btn btn-danger">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

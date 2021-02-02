@@ -1,0 +1,17 @@
+﻿@model InfoTextSMSDashboard.WebApp.DTOs.Contact
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<h1>Add new contact</h1>
+
+
+<partial name="_SaveContact" model="@Model">
+
+    <a asp-controller="Contact"
+       asp-action="index"
+       class="btn btn-info">
+        Back to Contacts
+    </a>

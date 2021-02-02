@@ -1,0 +1,72 @@
+﻿@model IEnumerable<InfoTextSMSDashboard.WebApp.DTOs.OutGoingSMSDTO>
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-controller="Message"
+       asp-action="CreateSMS"
+       class="btn btn-info">
+        Send SMS
+    </a>
+
+</p>
+
+@if (Model == null)
+{
+    <div>
+        <p>
+            No Messages sent out yet!.
+        </p>
+    </div>
+}
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+                <h3 class="mb-0">Messages</h3>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Id </th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Cost</th>
+                            <th scope="col">Recipient</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        @foreach (var sms in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @sms.SmsId
+                                </td>
+                                <td>
+                                    @sms.Message
+                                </td>
+                                <td>
+                                    @sms.MessageCost
+                                </td>
+                                <td>
+                                    @sms.RecipientNumber
+                                </td>
+                                <td>
+                                    @sms.RecipientStatus
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
