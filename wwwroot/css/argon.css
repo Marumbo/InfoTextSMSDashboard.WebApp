@@ -1,4 +1,4 @@
-@charset 'UTF-8';
+﻿@charset 'UTF-8';
 /*!
 
 =========================================================
@@ -27789,6 +27789,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
 {
     width: 0; 
     height: 0;
+
 }
 
 /*************** SIMPLE INNER SCROLLBAR ***************/

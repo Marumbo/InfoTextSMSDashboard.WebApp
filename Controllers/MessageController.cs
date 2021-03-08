@@ -8,27 +8,32 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using InfoTextSMSDashboard.WebApp.DTOs;
 using InfoTextSMSDashboard.WebApp.Models;
+using InfoTextSMSDashboard.WebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 
 namespace InfoTextSMSDashboard.WebApp.Controllers
 {
     public class MessageController : Controller
     {
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index( )
         {
-            List<OutGoingSMSDTO> messageList = new List<OutGoingSMSDTO>();
+            // List<OutGoingSMSDTO> messageList = new List<OutGoingSMSDTO>();
+
+            var messageView = new MessageViewModel { };
 
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://localhost:44382/api/sms/GetMessages"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    messageList = JsonConvert.DeserializeObject<List<OutGoingSMSDTO>>(apiResponse);
+                    messageView.Messages= JsonConvert.DeserializeObject<List<OutGoingSMSDTO>>(apiResponse);
                 }
             }
 
-            return View(messageList);
+
+            return View(messageView);
         }
 
         // go to send message
@@ -44,9 +49,10 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
         public async Task<IActionResult> SendSMS([FromForm]SMS sms)
         {
 
-         //  var smsContent =  new StringContent(System.Text.Json.JsonSerializer.Serialize(sms), Encoding.UTF8, "application/json");
+            //  var smsContent =  new StringContent(System.Text.Json.JsonSerializer.Serialize(sms), Encoding.UTF8, "application/json");
 
-          
+
+            var messageView = new MessageViewModel { };
 
             using (var httpClient = new HttpClient())
             {
@@ -62,17 +68,45 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
                         Debug.WriteLine($"api response= {apiResponse}");
-                        ViewBag.Message = string.Format($" {apiResponse}");
 
-                        return RedirectToAction(nameof(Index),ViewBag);
+                        messageView.StatusCode = "true";
+                        messageView.StatusCode.ToLower();
+
+                        messageView.ApiResponse = "Sms was sent and saved in database.";
+
+                    
+                        
+                           using (var getMessages = await httpClient.GetAsync("https://localhost:44382/api/sms/GetMessages"))
+                            {
+                                string messageList = await getMessages.Content.ReadAsStringAsync();
+                                messageView.Messages = JsonConvert.DeserializeObject<List<OutGoingSMSDTO>>(messageList);
+                            }
+                        
+
+
+
+                        return View("Index", messageView);
                     }
                     else
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        Debug.WriteLine($"api response= {apiResponse}");
-                        ViewBag.Message = string.Format($" {apiResponse}");
-                        Debug.WriteLine("Didnt save");
-                        return RedirectToAction(nameof(Index));
+
+                    
+                        messageView.StatusCode = "false";
+                        messageView.StatusCode.ToLower();
+
+                        messageView.ApiResponse = "Sms did not send please try again later. Check balance, contact adming if problem persists.";
+
+                        using (var getMessages = await httpClient.GetAsync("https://localhost:44382/api/sms/GetMessages"))
+                        {
+                            string messageList = await getMessages.Content.ReadAsStringAsync();
+                            messageView.Messages = JsonConvert.DeserializeObject<List<OutGoingSMSDTO>>(messageList);
+                        }
+
+
+                      
+
+                        return View("Index", messageView);
                     }
 
                 }

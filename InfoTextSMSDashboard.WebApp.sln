@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfoTextSMSDashboard.WebApp", "InfoTextSMSDashboard.WebApp.csproj", "{E8FF7968-2329-4F84-9F9B-4D4DA13FCE0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoTextSMSDashboard.WebApp", "InfoTextSMSDashboard.WebApp.csproj", "{E8FF7968-2329-4F84-9F9B-4D4DA13FCE0F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoTextSMSDashboard.BLL", "..\InfoTextSMSDashboard.BLL\InfoTextSMSDashboard.BLL.csproj", "{1911D923-CABB-44C1-94CD-655C663C9E79}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoTextSMSDashboard.Api", "..\InfoTextSMSDashboard.Api\InfoTextSMSDashboard.Api.csproj", "{7DC9073E-F137-46AA-9394-E6EFDFCF338D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoTextSMSDashboard.DAL", "..\InfoTextSMSDashboard.DAL\InfoTextSMSDashboard.DAL.csproj", "{8E70DE31-4996-4AC9-B742-4BA157CB4292}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoTextSMSDashboard.DataModels", "..\InfoTextSMSDashboard.DataModels\InfoTextSMSDashboard.DataModels.csproj", "{A8807AC3-281F-4845-98AF-63791B3691A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{E8FF7968-2329-4F84-9F9B-4D4DA13FCE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8FF7968-2329-4F84-9F9B-4D4DA13FCE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8FF7968-2329-4F84-9F9B-4D4DA13FCE0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1911D923-CABB-44C1-94CD-655C663C9E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1911D923-CABB-44C1-94CD-655C663C9E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1911D923-CABB-44C1-94CD-655C663C9E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1911D923-CABB-44C1-94CD-655C663C9E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DC9073E-F137-46AA-9394-E6EFDFCF338D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DC9073E-F137-46AA-9394-E6EFDFCF338D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DC9073E-F137-46AA-9394-E6EFDFCF338D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DC9073E-F137-46AA-9394-E6EFDFCF338D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E70DE31-4996-4AC9-B742-4BA157CB4292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E70DE31-4996-4AC9-B742-4BA157CB4292}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E70DE31-4996-4AC9-B742-4BA157CB4292}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E70DE31-4996-4AC9-B742-4BA157CB4292}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8807AC3-281F-4845-98AF-63791B3691A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8807AC3-281F-4845-98AF-63791B3691A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8807AC3-281F-4845-98AF-63791B3691A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8807AC3-281F-4845-98AF-63791B3691A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

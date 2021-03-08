@@ -30,6 +30,21 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
 
             return View(contactList);
         }
+        public async Task<IActionResult> DataTable()
+        {
+            List<Contact> contactList = new List<Contact>();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://localhost:44382/api/contacts/GetAllContacts"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    contactList = JsonConvert.DeserializeObject<List<Contact>>(apiResponse);
+                }
+            }
+
+            return View(contactList);
+        }
 
         // GET: Contact/Details/5
         public async Task<IActionResult> Details(int id)
