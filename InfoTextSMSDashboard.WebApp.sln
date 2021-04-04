@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoTextSMSDashboard.DAL", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoTextSMSDashboard.DataModels", "..\InfoTextSMSDashboard.DataModels\InfoTextSMSDashboard.DataModels.csproj", "{A8807AC3-281F-4845-98AF-63791B3691A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfoTextSMSDashboard.WebApplication", "..\InfoTextSMSDashboard.WebApplication\InfoTextSMSDashboard.WebApplication.csproj", "{6938E027-78F5-4256-B556-F12BC39D97E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A8807AC3-281F-4845-98AF-63791B3691A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8807AC3-281F-4845-98AF-63791B3691A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8807AC3-281F-4845-98AF-63791B3691A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6938E027-78F5-4256-B556-F12BC39D97E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6938E027-78F5-4256-B556-F12BC39D97E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6938E027-78F5-4256-B556-F12BC39D97E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6938E027-78F5-4256-B556-F12BC39D97E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
