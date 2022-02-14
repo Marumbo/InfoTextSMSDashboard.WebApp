@@ -3,6 +3,7 @@
     ViewData["Title"] = "CreateSMS";
 }
 
+@{ var contacts = string.Join(",", Model.Recipients);}
 
 <div class="row">
     <div class="col-xl-8">
@@ -10,7 +11,7 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col-12">
-                        <h3 class="mb-0">Send SMS </h3>
+                        <h3 class="mb-0">Send SMS</h3>
                     </div>
                 </div>
             </div>
@@ -24,7 +25,9 @@
                     <div class="col-lg-8">
                         <div class="form-group">
                             <label asp-for="Recipients" class="control-label"></label>
-                            <input asp-for="Recipients" class="form-control" />
+                           
+                             <input asp-for="Recipients"  class="form-control" value="@contacts"/>
+
                             <span asp-validation-for="Recipients" class="text-danger"></span>
                         </div>
                     </div>

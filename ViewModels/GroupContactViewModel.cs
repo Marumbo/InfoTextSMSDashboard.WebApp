@@ -1,4 +1,5 @@
-﻿using InfoTextSMSDashboard.WebApp.DTOs;
+﻿using InfoTextSMSDashboard.DataModels.Models;
+using InfoTextSMSDashboard.WebApp.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace InfoTextSMSDashboard.WebApp.ViewModels
 {
-    public class MessageViewModel
+    public class GroupContactViewModel
     {
-
-        public List<OutGoingSMSDTO> Messages { get; set; }
+        public List<GroupsDTOMVC> Groups { get; set; }
 
         public List<ContactDTOMVC> Contacts { get; set; }
 

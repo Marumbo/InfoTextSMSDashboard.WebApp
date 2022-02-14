@@ -115,5 +115,24 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
 
 
         }
+
+      
+        
+       public async Task<IActionResult> SendMessageToMany(ContactViewModel contactsViewModel)
+        {
+            var sms = new SMS();
+            var recipeintList = new List<string>();
+
+            foreach(var contact in contactsViewModel.Contacts)
+            {
+                if (contact.IsChecked)
+                {
+                    recipeintList.Add(contact.PhoneNumber);
+                }
+            }
+            sms.Recipients = recipeintList;
+
+            return View("SendSMS",sms);
+        }
     }
 }

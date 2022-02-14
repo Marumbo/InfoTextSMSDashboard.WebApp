@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace InfoTextSMSDashboard.WebApp.DTOs
 {
-    public class Contact
+    public class ContactDTOMVC
     {
+        public bool IsChecked { get; set; }
+
         public int? ContactId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

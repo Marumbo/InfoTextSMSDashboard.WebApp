@@ -1,0 +1,83 @@
+﻿@model IEnumerable<InfoTextSMSDashboard.DataModels.Models.GroupsDTO>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Groups</h1>
+
+<p>
+    <a asp-controller="Group"
+       asp-action="Create"
+       class="btn btn-info">
+        Create New Group
+    </a>
+
+</p>
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+                <h3 class="mb-0">Groups</h3>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Id </th>
+                            <th scope="col">Group name</th>
+                            <th scope="col">View</th>
+                            <th scope="col">Update</th>
+                            <th scope="col">Delete</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        @foreach (var group in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @group.GroupId
+                                </td>
+                                <td>
+                                    @group.GroupName
+                                </td>
+                               
+                                <td class="text-center">
+                                    <a asp-controller="Group"
+                                       asp-action="Details"
+                                       asp-route-id="@group.GroupId"
+                                       class="btn btn-secondary">
+                                        View Group
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a asp-controller="Group"
+                                       asp-action="Edit"
+                                       asp-route-id="@group.GroupId"
+                                       class="btn btn-primary">
+                                        Edit Group
+                                    </a>
+                                </td>
+
+                                <td class="text-center">
+                                    <a asp-controller="Group"
+                                       asp-action="Delete"
+                                       asp-route-id="@group.GroupId"
+                                       class="btn btn-danger">
+                                        Delete Group
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

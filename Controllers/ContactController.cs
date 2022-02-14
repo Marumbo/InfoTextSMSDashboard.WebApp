@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using InfoTextSMSDashboard.WebApp.DTOs;
+using InfoTextSMSDashboard.WebApp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -17,48 +18,37 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
         // GET: Contact
         public async Task<IActionResult> Index()
         {
-            List<Contact> contactList = new List<Contact>();
+         
+            var contactViewModel = new ContactViewModel();
+            var contactList = new List<ContactDTOMVC>();
 
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://localhost:44382/api/contacts/GetAllContacts"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    contactList = JsonConvert.DeserializeObject<List<Contact>>(apiResponse);
+                    contactList = JsonConvert.DeserializeObject<List<ContactDTOMVC>>(apiResponse);
+                    contactViewModel.Contacts = contactList;
                 }
             }
 
-            return View(contactList);
+            return View(contactViewModel);
         }
 
-        public async Task<IActionResult> DataTable()
-        {
-            List<Contact> contactList = new List<Contact>();
-
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("https://localhost:44382/api/contacts/GetAllContacts"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    contactList = JsonConvert.DeserializeObject<List<Contact>>(apiResponse);
-                }
-            }
-
-            return View(contactList);
-        }
+     
 
         [HttpPost]
         [Route("GetContactDatatableData")]
         public async Task<IActionResult> GetContactDatatableData()
         {
-            List<Contact> contactList = new List<Contact>();
+            List<ContactDTOMVC> contactList = new List<ContactDTOMVC>();
 
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://localhost:44382/api/contacts/GetAllContacts"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    contactList = JsonConvert.DeserializeObject<List<Contact>>(apiResponse);
+                    contactList = JsonConvert.DeserializeObject<List<ContactDTOMVC>>(apiResponse);
                 }
             }
 
@@ -98,7 +88,7 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
         // GET: Contact/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var contact = new Contact();
+            var contact = new ContactDTOMVC();
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"https://localhost:44382/api/contacts/GetContactById/?id={id}"))
@@ -106,7 +96,7 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        contact = JsonConvert.DeserializeObject<Contact>(apiResponse);
+                        contact = JsonConvert.DeserializeObject<ContactDTOMVC>(apiResponse);
                         return View(contact);
                     }
                     else
@@ -124,7 +114,7 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
         // GET: Contact/Create
         public ActionResult Create()
         {
-            var contact = new Contact();
+            var contact = new ContactDTOMVC();
 
             return View(contact);
         }
@@ -132,7 +122,7 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
 
         [HttpPost]
         [Route("/Contact/Save", Name = "SaveContact")]
-        public async Task<IActionResult> Save([FromForm]Contact contact)
+        public async Task<IActionResult> Save([FromForm]ContactDTOMVC contact)
         {
 
             if (contact.ContactId == null)
@@ -141,7 +131,7 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
                 using (var httpClient = new HttpClient())
                 {
 
-                    var contactDTO = new Contact
+                    var contactDTO = new ContactDTOMVC
                     {
                        FirstName = contact.FirstName,
                        LastName = contact.LastName,
@@ -184,7 +174,7 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
                 using (var httpClient = new HttpClient())
                 {
 
-                    var contactDTO = new Contact
+                    var contactDTO = new ContactDTOMVC
                     {
                         ContactId= contact.ContactId,
                         FirstName = contact.FirstName,
@@ -232,7 +222,7 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
         // GET: Contact/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            var contact = new Contact();
+            var contact = new ContactDTOMVC();
 
             using (var httpClient = new HttpClient())
             {
@@ -241,7 +231,7 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        contact = JsonConvert.DeserializeObject<Contact>(apiResponse);
+                        contact = JsonConvert.DeserializeObject<ContactDTOMVC>(apiResponse);
                         return View(contact);
                     }
                     else
@@ -259,7 +249,7 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
     
         public async Task<IActionResult> Delete(int id)
         {
-            var contact = new Contact();
+            var contact = new ContactDTOMVC();
 
             using (var httpClient = new HttpClient())
             {
@@ -268,7 +258,7 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        contact = JsonConvert.DeserializeObject<Contact>(apiResponse);
+                        contact = JsonConvert.DeserializeObject<ContactDTOMVC>(apiResponse);
                         return View(contact);
                     }
                     else
@@ -287,17 +277,17 @@ namespace InfoTextSMSDashboard.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteContact(int id)
         {
-            var contact = new Contact();
+            var contact = new ContactDTOMVC();
 
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"https://localhost:44382/api/contacts/GetContactById/?id={id}"))
+                using (var response = await httpClient.DeleteAsync($"https://localhost:44382/api/contacts/DeleteContact/?id={id}"))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        contact = JsonConvert.DeserializeObject<Contact>(apiResponse);
-                        return View(contact);
+                        //contact = JsonConvert.DeserializeObject<ContactDTOMVC>(apiResponse);
+                        return RedirectToAction(nameof(Index));
                     }
                     else
                     {

@@ -1,0 +1,38 @@
+﻿@model InfoTextSMSDashboard.DataModels.Models.GroupsDTO
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Add  New Group</h1>
+
+<div class="row">
+    <div class="col-xl-4">
+
+        <form asp-route="Create" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="GroupId" />
+            <div class="form-group">
+                <label asp-for="GroupName" class="control-label"></label>
+                <input asp-for="GroupName" class="form-control" />
+                <span asp-validation-for="GroupName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+
+            <a asp-controller="Group"
+               asp-action="Index"
+               class="btn btn-info">
+                Back to Contacts
+            </a>
+
+        </form>
+    </div>
+
+
+</div>
+

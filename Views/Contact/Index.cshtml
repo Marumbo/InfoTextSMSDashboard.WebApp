@@ -1,10 +1,8 @@
-﻿@model IEnumerable<InfoTextSMSDashboard.WebApp.DTOs.Contact>
+﻿@model InfoTextSMSDashboard.WebApp.ViewModels.ContactViewModel
 @{
     ViewData["Title"] = "Index";
 
 }
-
-
 
 
 
@@ -21,10 +19,11 @@
 </p>
 
 <p>
-    <a asp-controller="Contact"
-       asp-action="DataTable"
+    <a asp-controller="Message"
+       asp-action="SendMessageToMany"
+       asp-route-contactsViewModel= "@Model.Contacts"
        class="btn btn-info">
-        Datatable
+        Send message to many
     </a>
 
 </p>
@@ -36,70 +35,105 @@
             <div class="card-header border-0">
                 <h3 class="mb-0">Contacts</h3>
             </div>
-            <!-- Light table -->
-            <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Id </th>
-                            <th scope="col">First name</th>
-                            <th scope="col">Last name</th>
-                            <th scope="col">Phone number</th>
-                            <th scope="col">Email address</th>
-                            <th scope="col">View</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody class="list">
-                        @foreach (var contact in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @contact.ContactId
-                                </td>
-                                <td>
-                                    @contact.FirstName
-                                </td>
-                                <td>
-                                    @contact.LastName
-                                </td>
-                                <td>
-                                    @contact.PhoneNumber
-                                </td>
-                                <td>
-                                    @contact.EmailAddress
-                                </td>
-                                <td class="text-center">
-                                    <a asp-controller="Contact"
-                                       asp-action="Details"
-                                       asp-route-id="@contact.ContactId"
-                                       class="btn btn-secondary">
-                                        View Details
-                                    </a>
-                                </td>
-                                <td class="text-center">
-                                    <a asp-controller="Contact"
-                                       asp-action="Edit"
-                                       asp-route-id="@contact.ContactId"
-                                       class="btn btn-primary">
-                                        Edit
-                                    </a>
-                                </td>
+            <form>
 
-                                <td class="text-center">
-                                    <a asp-controller="Contact"
-                                       asp-action="Delete"
-                                       asp-route-id="@contact.ContactId"
-                                       class="btn btn-danger">
-                                        Delete
-                                    </a>
-                                </td>
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">First name</th>
+                                <th scope="col">Last name</th>
+                                <th scope="col">Phone number</th>
+                                <th scope="col">Email address</th>
+                                <th scope="col">View</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody class="list">
+                            @for (int i = 0; i < Model.Contacts.Count; i++)
+                            {
+                                
+
+                                <tr>
+                                    <td>
+                                        <input type="hidden" asp-for="@Model.Contacts[i].Organization" />
+                                        <input type="hidden" asp-for="@Model.Contacts[i].AddedBy" />
+                                        <input type="hidden" asp-for="@Model.Contacts[i].GroupId" />
+                                        <input type="hidden" asp-for="@Model.Contacts[i].ContactId" />
+                                        <input type="hidden" asp-for="@Model.Contacts[i].DateAdded" />
+
+                                        <input type="checkbox" asp-for="@Model.Contacts[i].IsChecked" />
+                                    </td>
+                                    <td>
+                                        <input type="hidden" asp-for="@Model.Contacts[i].FirstName" />
+                                        @Model.Contacts[i].FirstName
+                                    </td>
+                                    <td>
+                                        <input type="hidden" asp-for="@Model.Contacts[i].LastName" />
+                                        @Model.Contacts[i].LastName
+                                    </td>
+                                    <td>
+                                        <input type="hidden" asp-for="@Model.Contacts[i].PhoneNumber" />
+                                        @Model.Contacts[i].PhoneNumber
+                                    </td>
+                                    <td>
+                                        <input type="hidden" asp-for="@Model.Contacts[i].EmailAddress" />
+                                        @Model.Contacts[i].EmailAddress
+                                    </td>
+                                    <td class="text-center">
+                                        <a asp-controller="Contact"
+                                           asp-action="Details"
+                                           asp-route-id="@Model.Contacts[i].ContactId"
+                                           class="btn btn-secondary">
+                                            View Details
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a asp-controller="Contact"
+                                           asp-action="Edit"
+                                           asp-route-id="@Model.Contacts[i].ContactId"
+                                           class="btn btn-primary">
+                                            Edit
+                                        </a>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <a asp-controller="Contact"
+                                           asp-action="Delete"
+                                           asp-route-id="@Model.Contacts[i].ContactId"
+                                           class="btn btn-danger">
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-6 text-center">
+                            <div class="form-group">
+                                <input type="submit" name="SendToMany" value="Send SMS To Selected" formaction="/Message/SendMessageToMany" formmethod="post" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div class="col-6 text-center">
+                            <div class="form-group">
+                                <input type="submit" name="AddToGroup" value="Add To Group" formaction="/Group/AddContactsToGroup" formmethod="post" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                
+                
+
+            </form>
 
         </div>
     </div>

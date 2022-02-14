@@ -1,0 +1,161 @@
+﻿@model InfoTextSMSDashboard.WebApp.ViewModels.GroupContactViewModel
+
+
+@{
+    ViewData["Title"] = "AddContactsToGroup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Pick the group to add the list of contacts to:</h1>
+
+<form>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Groups</h3>
+                </div>
+
+
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Id </th>
+                                <th scope="col">Group name</th>
+                                <th scope="col">View</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            @for (int i = 0; i < Model.Groups.Count(); i++)
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" asp-for="@Model.Groups[i].IsChecked" />
+                                    </td>
+                                    <td>
+                                        <input type="hidden" asp-for="@Model.Groups[i].GroupId" />
+                                        @Model.Groups[i].GroupId
+                                    </td>
+                                    <td>
+                                        <input type="hidden" asp-for="@Model.Groups[i].GroupName" />
+                                        @Model.Groups[i].GroupName
+                                    </td>
+
+                                    <td class="text-center">
+                                        <a asp-controller="Group"
+                                           asp-action="Details"
+                                           asp-route-id="@Model.Groups[i].GroupId"
+                                           class="btn btn-secondary">
+                                            View Group
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-12 text-center">
+                            <div class="form-group">
+                                <input type="submit" name="ContactsToGroup" value="Add To Selected Group" formaction="/Group/ContactsToGroup" formmethod="post" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Contacts</h3>
+                </div>
+
+                @if (Model.Contacts != null)
+                {
+
+                    <!-- Light table -->
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">First name</th>
+                                    <th scope="col">Last name</th>
+                                    <th scope="col">Phone number</th>
+                                    <th scope="col">Email address</th>
+                                    <th scope="col">View</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                @for (int i = 0; i < Model.Contacts.Count; i++)
+                                {
+
+
+                                    <tr>
+
+                                        <td>
+                                            <input type="hidden" asp-for="@Model.Contacts[i].Organization" />
+                                            <input type="hidden" asp-for="@Model.Contacts[i].AddedBy" />
+                                            <input type="hidden" asp-for="@Model.Contacts[i].GroupId" />
+                                            <input type="hidden" asp-for="@Model.Contacts[i].ContactId" />
+                                            <input type="hidden" asp-for="@Model.Contacts[i].DateAdded" />
+                                            <input type="hidden" asp-for="@Model.Contacts[i].FirstName" />
+
+                                            @Model.Contacts[i].FirstName
+                                        </td>
+                                        <td>
+                                            <input type="hidden" asp-for="@Model.Contacts[i].LastName" />
+                                            @Model.Contacts[i].LastName
+                                        </td>
+                                        <td>
+                                            <input type="hidden" asp-for="@Model.Contacts[i].PhoneNumber" />
+                                            @Model.Contacts[i].PhoneNumber
+                                        </td>
+                                        <td>
+                                            <input type="hidden" asp-for="@Model.Contacts[i].EmailAddress" />
+                                            @Model.Contacts[i].EmailAddress
+                                        </td>
+                                        <td class="text-center">
+                                            <a asp-controller="contactViewModel.contact"
+                                               asp-action="Details"
+                                               asp-route-id="@Model.Contacts[i].ContactId"
+                                               class="btn btn-secondary">
+                                                View Details
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p> No Contacts to add to group</p>
+                }
+
+
+            </div>
+        </div>
+    </div>
+
+
+</form>
